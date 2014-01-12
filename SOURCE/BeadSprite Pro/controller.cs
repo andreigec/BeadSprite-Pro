@@ -18,10 +18,10 @@ namespace BeadSprite_Pro
             if (Beads.SelectedBeadColours==null)
                 Beads.SelectedBeadColours = new List<Color>();
 
-            var l = new List<SelectItem>();
+            var l = new List<selectItemFromListBox.SelectItem>();
             foreach(var f in Beads.AllBeadColours)
             {
-                var si = new SelectItem(f.Key,Beads.SelectedBeadColours.Contains(f.Value));
+                var si = new selectItemFromListBox.SelectItem(f.Key,Beads.SelectedBeadColours.Contains(f.Value));
                 l.Add(si);
             }
             var res=SelectPalette.ShowDialog("Select the beads you wish to use", "Bead Palette Editor", l);
@@ -39,7 +39,7 @@ namespace BeadSprite_Pro
 
         public static Dictionary<string, Color> GetBeadColoursFromFile(String filename)
         {
-            var f = FileUpdates.LoadFile("beads.txt");
+            var f = FileExtras.LoadFile("beads.txt");
             if (String.IsNullOrWhiteSpace(f))
                 return new Dictionary<string, Color>();
 
@@ -50,7 +50,7 @@ namespace BeadSprite_Pro
             {
                 var f4 = f3.Split(new[] { "\t" }, StringSplitOptions.RemoveEmptyEntries);
 
-                var c = ColorUpdates.HexColourToColour(f4[1]);
+                var c = ColorExtras.HexColourToColour(f4[1]);
 
                 if (c == null)
                     continue;
@@ -72,7 +72,7 @@ namespace BeadSprite_Pro
             }
 
             //get matching
-            var bc = Beads.AllBeadColours.Where(s => ColorUpdates.TestColourByRGB(s.Value,c));
+            var bc = Beads.AllBeadColours.Where(s => ColorExtras.TestColourByRGB(s.Value, c));
             if (bc.Count() == 0)
                 return c.ToString();
             var bcf = bc.First();
@@ -125,7 +125,7 @@ namespace BeadSprite_Pro
 
             ts.Text = GetColourDescription(c, orig);
             ts.BackColor = c;
-            ts.ForeColor = ColorUpdates.getNegative(c);
+            ts.ForeColor = ColorExtras.getNegative(c);
         }
 
         public static void SaveCustomImageToFile(Beads beads,String filename,bool drawgrid)

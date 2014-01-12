@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using ANDREICSLIB;
 using ANDREICSLIB.ClassExtras;
 using ANDREICSLIB.NewControls;
+using BeadSprite_Pro.ServiceReference1;
 
 namespace BeadSprite_Pro
 {
@@ -20,12 +21,8 @@ namespace BeadSprite_Pro
         #region licensing
 
         private const string AppTitle = "BeadSprite Pro";
-        private const double AppVersion = 0.1;
+        private const double AppVersion = 0.2;
         private const String HelpString = "";
-
-        private const String UpdatePath = "https://github.com/EvilSeven/BeadSprite-Pro/zipball/master";
-        private const String VersionPath = "https://raw.github.com/EvilSeven/BeadSprite-Pro/master/INFO/version.txt";
-        private const String ChangelogPath = "https://raw.github.com/EvilSeven/BeadSprite-Pro/master/INFO/changelog.txt";
 
         private readonly String OtherText =
             @"©" + DateTime.Now.Year +
@@ -54,19 +51,45 @@ Zip Assets © SharpZipLib (http://www.sharpdevelop.net/OpenSource/SharpZipLib/)
             newts.Text = "";
             oldts.Text = "";
 
-            Licensing.CreateLicense(this, HelpString, AppTitle, AppVersion, OtherText, VersionPath, UpdatePath, ChangelogPath, menuStrip1);
+            Licensing.CreateLicense(this, menuStrip1, new Licensing.SolutionDetails(GetDetails, HelpString, AppTitle, AppVersion, OtherText));
 
             Beads.AllBeadColours = controller.GetBeadColoursFromFile("beads.txt");
 
-            LoadedBeads = Beads.Create("ending.png",ignoreWhiteBeadsFromOutsideToolStripMenuItem.Checked);
             RedrawBeads();
+        }
+
+        public Licensing.DownloadedSolutionDetails GetDetails()
+        {
+            try
+            {
+                var sr = new ServicesClient();
+                var ti = sr.GetTitleInfo(AppTitle);
+                if (ti == null)
+                    return null;
+                return ToDownloadedSolutionDetails(ti);
+
+            }
+            catch (Exception)
+            {
+            }
+            return null;
+        }
+
+        public static Licensing.DownloadedSolutionDetails ToDownloadedSolutionDetails(TitleInfoServiceModel tism)
+        {
+            return new Licensing.DownloadedSolutionDetails()
+            {
+                ZipFileLocation = tism.LatestTitleDownloadPath,
+                ChangeLog = tism.LatestTitleChangelog,
+                Version = tism.LatestTitleVersion
+            };
         }
 
         private void loadImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var ofd = new OpenFileDialog();
             ofd.Title = "Select Image file to import";
-            ofd.InitialDirectory = DirectoryUpdates.GetExePath();
+            ofd.InitialDirectory = DirectoryExtras.GetExePath();
             var res = ofd.ShowDialog();
             if (res != DialogResult.OK)
                 return;
@@ -90,7 +113,7 @@ Zip Assets © SharpZipLib (http://www.sharpdevelop.net/OpenSource/SharpZipLib/)
         private void RedrawBeads()
         {
             splitcont.Panel1.BackgroundImageLayout = splitcont.Panel2.BackgroundImageLayout = GetLayout();
-            
+
             controller.DrawBeads(splitcont.Panel2, LoadedBeads, true, viewGridToolStripMenuItem.Checked);
             controller.DrawBeads(splitcont.Panel1, LoadedBeads, false, viewGridToolStripMenuItem.Checked);
         }
@@ -141,7 +164,7 @@ Zip Assets © SharpZipLib (http://www.sharpdevelop.net/OpenSource/SharpZipLib/)
 
         private void splitcont_Panel1_MouseMove(object sender, MouseEventArgs e)
         {
-            controller.UpdateMousePos(LoadedBeads,sender as Panel, newts, oldts, e.X, e.Y);
+            controller.UpdateMousePos(LoadedBeads, sender as Panel, newts, oldts, e.X, e.Y);
         }
 
         private void splitcont_Panel2_MouseMove(object sender, MouseEventArgs e)
@@ -165,18 +188,18 @@ Zip Assets © SharpZipLib (http://www.sharpdevelop.net/OpenSource/SharpZipLib/)
         {
             var sfd = new SaveFileDialog();
             sfd.Title = "Select path for copied custom image";
-            sfd.InitialDirectory = DirectoryUpdates.GetExePath();
+            sfd.InitialDirectory = DirectoryExtras.GetExePath();
             sfd.Filter = "|*.png";
             var res = sfd.ShowDialog();
             if (res != DialogResult.OK)
                 return;
 
-            controller.SaveCustomImageToFile(LoadedBeads, sfd.FileName,viewGridToolStripMenuItem.Checked);
+            controller.SaveCustomImageToFile(LoadedBeads, sfd.FileName, viewGridToolStripMenuItem.Checked);
         }
 
         private void splitcont_Panel2_Paint(object sender, PaintEventArgs e)
         {
-            ImageDraw.PaintEvent(sender,e);
+            ImageDraw.PaintEvent(sender, e);
         }
 
         private void splitcont_Panel1_Paint(object sender, PaintEventArgs e)

@@ -75,7 +75,7 @@ namespace BeadSprite_Pro
                     }
 
                     if (MappedPalette.ContainsKey(old)==false)
-                        MappedPalette.Add(old, ColorUpdates.GetNearestColour(old,SelectedBeadColours));
+                        MappedPalette.Add(old, ColorExtras.GetNearestColour(old,SelectedBeadColours));
                     
                         BeadColours[y][x] = MappedPalette[old];
                 }
@@ -85,14 +85,14 @@ namespace BeadSprite_Pro
         private static void ClearEdges(Beads b,bool original=true)
         {
             if (original)
-                MatrixOps.Replace(ref b.OriginalColours,Color.White,Color.Transparent,ColorUpdates.TestColourByRGB);
+                MatrixOps.Replace(ref b.OriginalColours,Color.White,Color.Transparent,ColorExtras.TestColourByRGB);
             else
-                MatrixOps.Replace(ref b.BeadColours, Color.White, Color.Transparent, ColorUpdates.TestColourByRGB);
+                MatrixOps.Replace(ref b.BeadColours, Color.White, Color.Transparent, ColorExtras.TestColourByRGB);
         }
 
         public static Beads Create(String fileName,bool ignorewhiteedge)
         {
-            var cm = BitmapUpdates.ImageFileToColorMatrix(fileName);
+            var cm = BitmapExtras.ImageFileToColorMatrix(fileName);
             if (cm == null)
                 return null;
 

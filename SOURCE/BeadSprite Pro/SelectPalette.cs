@@ -22,7 +22,7 @@ namespace ANDREICSLIB.NewControls
             InitializeComponent();
         }
 
-        public static List<String> ShowDialog(String labelText, String title, List<SelectItem> listBoxItems, int mustSelectCountIN = -1)
+        public static List<String> ShowDialog(String labelText, String title, List<selectItemFromListBox.SelectItem> listBoxItems, int mustSelectCountIN = -1)
         {
             var s = new SelectPalette();
             s.GetPalettes();
@@ -35,7 +35,7 @@ namespace ANDREICSLIB.NewControls
             var a = 0;
             foreach (var v in listBoxItems)
             {
-                s.checkedListBox1.Items.Add(v.text);
+                s.checkedListBox1.Items.Add(v.Text);
                 s.checkedListBox1.SetItemChecked(a, v.preselected);
                 a++;
             }
@@ -96,12 +96,12 @@ namespace ANDREICSLIB.NewControls
             if (Directory.Exists(PaletteDirectory) == false)
                 Directory.CreateDirectory(PaletteDirectory);
 
-            var f = DirectoryUpdates.GetFilesRecursive(PaletteDirectory);
+            var f = DirectoryExtras.GetFilesRecursive(PaletteDirectory);
 
             paletteCB.Items.Clear();
             foreach (var f2 in f)
             {
-                var f3 = FileUpdates.TrimFileName(f2, false, true, false);
+                var f3 = FileExtras.TrimFileName(f2, false, true, false);
                 paletteCB.Items.Add(f3);
             }
 
@@ -123,7 +123,7 @@ namespace ANDREICSLIB.NewControls
             var sfd = new SaveFileDialog();
             sfd.Title = "Save palette file";
             sfd.Filter = "|*.palette";
-            sfd.InitialDirectory = DirectoryUpdates.GetExePath() + "\\" + PaletteDirectory;
+            sfd.InitialDirectory = DirectoryExtras.GetExePath() + "\\" + PaletteDirectory;
             var res = sfd.ShowDialog();
             if (res != DialogResult.OK)
                 return;
@@ -134,7 +134,7 @@ namespace ANDREICSLIB.NewControls
                 ret += c + "\r\n";
             }
 
-            FileUpdates.SaveToFile(sfd.FileName, ret);
+            FileExtras.SaveToFile(sfd.FileName, ret);
             GetPalettes();
         }
 
@@ -148,21 +148,21 @@ namespace ANDREICSLIB.NewControls
             if (String.IsNullOrWhiteSpace(paletteCB.Text))
                 return;
 
-            var p = DirectoryUpdates.GetExePath() + "\\"+PaletteDirectory + "\\";
-            var f1 = FileUpdates.GetAbsoluteFilePath(paletteCB.Text, p);
+            var p = DirectoryExtras.GetExePath() + "\\"+PaletteDirectory + "\\";
+            var f1 = FileExtras.GetAbsoluteFilePath(paletteCB.Text, p);
             if (f1 == null)
                 return;
 
-            var f2 = FileUpdates.LoadFile(f1);
+            var f2 = FileExtras.LoadFile(f1);
             if (string.IsNullOrEmpty(f2))
                 return;
 
-            var s = StringUpdates.SplitString(f2, "\r\n");
+            var s = StringExtras.SplitString(f2, "\r\n");
 
-            CheckedListBoxUpdates.CheckAll(checkedListBox1, false);
+            CheckedListBoxExtras.CheckAll(checkedListBox1, false);
             foreach (var s1 in s)
             {
-                CheckedListBoxUpdates.CheckItem(checkedListBox1, s1);
+                CheckedListBoxExtras.CheckItem(checkedListBox1, s1);
             }
         }
     }

@@ -41,9 +41,10 @@
             this.statsLV.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
-            this.statsLV.Location = new System.Drawing.Point(53, 121);
+            this.statsLV.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.statsLV.Location = new System.Drawing.Point(0, 105);
             this.statsLV.Name = "statsLV";
-            this.statsLV.Size = new System.Drawing.Size(303, 261);
+            this.statsLV.Size = new System.Drawing.Size(321, 261);
             this.statsLV.TabIndex = 0;
             this.statsLV.UseCompatibleStateImageBehavior = false;
             this.statsLV.View = System.Windows.Forms.View.Details;
@@ -52,6 +53,7 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "Colour";
+            this.columnHeader1.Width = 198;
             // 
             // columnHeader2
             // 
@@ -61,7 +63,7 @@
             // totalold
             // 
             this.totalold.AutoSize = true;
-            this.totalold.Location = new System.Drawing.Point(88, 29);
+            this.totalold.Location = new System.Drawing.Point(47, 7);
             this.totalold.Name = "totalold";
             this.totalold.Size = new System.Drawing.Size(35, 13);
             this.totalold.TabIndex = 1;
@@ -70,7 +72,7 @@
             // totalnew
             // 
             this.totalnew.AutoSize = true;
-            this.totalnew.Location = new System.Drawing.Point(88, 52);
+            this.totalnew.Location = new System.Drawing.Point(47, 30);
             this.totalnew.Name = "totalnew";
             this.totalnew.Size = new System.Drawing.Size(35, 13);
             this.totalnew.TabIndex = 2;
@@ -79,7 +81,7 @@
             // totalbeadcount
             // 
             this.totalbeadcount.AutoSize = true;
-            this.totalbeadcount.Location = new System.Drawing.Point(88, 80);
+            this.totalbeadcount.Location = new System.Drawing.Point(47, 58);
             this.totalbeadcount.Name = "totalbeadcount";
             this.totalbeadcount.Size = new System.Drawing.Size(78, 13);
             this.totalbeadcount.TabIndex = 3;
@@ -89,7 +91,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(889, 539);
+            this.ClientSize = new System.Drawing.Size(321, 366);
             this.Controls.Add(this.totalbeadcount);
             this.Controls.Add(this.totalnew);
             this.Controls.Add(this.totalold);

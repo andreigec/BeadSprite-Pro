@@ -32,13 +32,13 @@ namespace BeadSprite_Pro
             foreach(var kvp in b.MappedPalette)
             {
                 var lvi = new ListViewItem();
-                var name = DictionaryUpdates.GetKeyByValue(Beads.AllBeadColours, kvp.Value);
+                var name = DictionaryExtras.GetKeyByValue(Beads.AllBeadColours, kvp.Value);
                 if (name==null)
                     continue;
 
                 lvi.Text = name;
                 lvi.BackColor = kvp.Value;
-                lvi.ForeColor = ColorUpdates.getNegative(kvp.Value);
+                lvi.ForeColor = ColorExtras.getNegative(kvp.Value);
                 lvi.SubItems.Add(MatrixOps.Count(b.BeadColours, kvp.Value).ToString());
 
                 statsLV.Items.Add(lvi);
