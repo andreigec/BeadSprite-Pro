@@ -15,8 +15,6 @@ using ANDREICSLIB.ClassExtras;
 using ANDREICSLIB.Helpers;
 using ANDREICSLIB.Licensing;
 using ANDREICSLIB.NewControls;
-using BeadSprite_Pro.ServiceReference1;
-
 namespace BeadSprite_Pro
 {
     public partial class Form1 : Form
