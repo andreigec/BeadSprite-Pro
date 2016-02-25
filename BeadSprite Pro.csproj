@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BeadSprite_Pro</RootNamespace>
-    <AssemblyName>BeadSprite Pro</AssemblyName>
+    <AssemblyName>BeadSprite-Pro</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -36,11 +36,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-    <DocumentationFile>bin\Release\BeadSprite Pro.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\BeadSprite-Pro.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ANDREICSLIB, Version=1.0.99.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\ANDREICSLIB.1.0.99.0\lib\net451\ANDREICSLIB.dll</HintPath>
+    <Reference Include="ANDREICSLIB, Version=1.0.103.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\ANDREICSLIB.1.0.103.0\lib\net451\ANDREICSLIB.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
@@ -80,7 +80,7 @@
     </Compile>
     <Compile Include="SelectItemsFromCheckBox.Designer.cs">
       <DependentUpon>SelectPalette.cs</DependentUpon>
-    </Compile>  
+    </Compile>
     <Compile Include="Stats.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,9 +117,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>   
+    </Compile>
   </ItemGroup>
-  
   <ItemGroup>
     <Content Include="beads.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

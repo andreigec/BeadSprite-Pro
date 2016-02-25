@@ -20,9 +20,6 @@ namespace BeadSprite_Pro
     public partial class Form1 : Form
     {
         #region licensing
-
-        private const string AppTitle = "BeadSprite Pro";
-        private const string AppRepo = "BeadSprite-Pro";
         private const String HelpString = "";
 
         private readonly String OtherText =
@@ -33,18 +30,12 @@ Licensed under GNU LGPL (http://www.gnu.org/)
 
 Zip Assets © SharpZipLib (http://www.sharpdevelop.net/OpenSource/SharpZipLib/)
 ";
-        public void InitLicensing()
-        {
-            Licensing.CreateLicense(this, menuStrip1,
-                new Licensing.SolutionDetails(GitHubLicensing.GetGitHubReleaseDetails, HelpString, AppTitle, AppRepo,
-                    AssemblyExtras.GetAssemblyFileVersionInfo(), OtherText));
-        }
 
         #endregion
 
         #region settings
 
-        private static string configPath = AppRepo + ".cfg";
+        private static string configPath = "config.cfg";
         public void SaveConfig()
         {
             var savethese1 = new List<Control>();
@@ -98,7 +89,7 @@ Zip Assets © SharpZipLib (http://www.sharpdevelop.net/OpenSource/SharpZipLib/)
             newts.Text = "";
             oldts.Text = "";
 
-            InitLicensing();
+            Licensing.LicensingForm(this, menuStrip1, HelpString, OtherText);
             LoadConfig();
 
             Beads.AllBeadColours = controller.GetBeadColoursFromFile("beads.txt");

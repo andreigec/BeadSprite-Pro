@@ -32,7 +32,7 @@ artifacts:
 - path: bsp.zip
   name: bsp
 deploy:
-  release: SQLAutoJoin-v$(appveyor_build_version)
+  release: BeadSpritePro-v$(appveyor_build_version)
   description: '$(APPVEYOR_REPO_COMMIT_AUTHOR) - $(APPVEYOR_REPO_COMMIT_MESSAGE)'
   provider: GitHub
   auth_token:
